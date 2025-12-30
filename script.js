@@ -211,11 +211,18 @@ window.addEventListener('load', function() {
     }
 });
 
-// Portfolio Filter
-const filterButtons = document.querySelectorAll('.filter-btn');
+// Portfolio Filter - Initialize when DOM is ready
+let portfolioFilterInitialized = false;
 
-if (filterButtons.length > 0) {
+function initPortfolioFilter() {
+    if (portfolioFilterInitialized) return;
+    
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    if (filterButtons.length === 0) return;
+    
+    portfolioFilterInitialized = true;
     const portfolioItems = document.querySelectorAll('.portfolio-item');
+    
     filterButtons.forEach(button => {
         button.addEventListener('click', () => {
             // Remove active class from all buttons
@@ -251,6 +258,13 @@ if (filterButtons.length > 0) {
             });
         });
     });
+}
+
+// Initialize portfolio filter when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPortfolioFilter);
+} else {
+    initPortfolioFilter();
 }
 
 // Contact Form Handling

@@ -106,32 +106,59 @@ function initLanguageSwitcher() {
 }
 
 // Initialize when page loads - wait for both DOM and scripts
-window.addEventListener('load', function() {
-    console.log('Window loaded, initializing language switcher');
-    setTimeout(initLanguageSwitcher, 100);
-});
+let languageSwitcherInitialized = false;
 
-// Also try on DOMContentLoaded as fallback
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM content loaded');
-    setTimeout(initLanguageSwitcher, 200);
+function tryInitLanguageSwitcher() {
+    if (languageSwitcherInitialized) return;
+    
+    if (typeof translations !== 'undefined' && document.querySelectorAll('.lang-btn').length > 0) {
+        console.log('Initializing language switcher...');
+        initLanguageSwitcher();
+        languageSwitcherInitialized = true;
+    } else {
+        setTimeout(tryInitLanguageSwitcher, 50);
+    }
+}
+
+// Try multiple times to ensure translations are loaded
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', tryInitLanguageSwitcher);
+} else {
+    tryInitLanguageSwitcher();
+}
+
+// Also try on window load as fallback
+window.addEventListener('load', function() {
+    if (!languageSwitcherInitialized) {
+        tryInitLanguageSwitcher();
+    }
 });
 
 // Mobile Menu Toggle - Initialize when DOM is ready
+let mobileMenuInitialized = false;
+
 function initMobileMenu() {
+    if (mobileMenuInitialized) return;
+    
     const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
     const navMenu = document.querySelector('.nav-menu');
 
     if (mobileMenuToggle && navMenu) {
-        // Remove existing listeners by cloning
-        const newToggle = mobileMenuToggle.cloneNode(true);
-        mobileMenuToggle.parentNode.replaceChild(newToggle, mobileMenuToggle);
+        mobileMenuInitialized = true;
         
-        const toggle = newToggle;
+        const toggle = mobileMenuToggle;
         const menu = navMenu;
 
-        // Toggle menu on click
+        // Toggle menu on click (with touch support)
         toggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            menu.classList.toggle('active');
+            toggle.classList.toggle('active');
+        });
+        
+        // Also support touch events for mobile
+        toggle.addEventListener('touchstart', function(e) {
             e.preventDefault();
             e.stopPropagation();
             menu.classList.toggle('active');
@@ -151,8 +178,11 @@ function initMobileMenu() {
         document.addEventListener('click', (e) => {
             if (menu.classList.contains('active')) {
                 if (!menu.contains(e.target) && !toggle.contains(e.target)) {
-                    menu.classList.remove('active');
-                    toggle.classList.remove('active');
+                    const langSwitcher = document.querySelector('.language-switcher');
+                    if (!langSwitcher || !langSwitcher.contains(e.target)) {
+                        menu.classList.remove('active');
+                        toggle.classList.remove('active');
+                    }
                 }
             }
         });
@@ -174,11 +204,18 @@ if (document.readyState === 'loading') {
     initMobileMenu();
 }
 
+// Also try on window load
+window.addEventListener('load', function() {
+    if (!mobileMenuInitialized) {
+        initMobileMenu();
+    }
+});
+
 // Portfolio Filter
 const filterButtons = document.querySelectorAll('.filter-btn');
-const portfolioItems = document.querySelectorAll('.portfolio-item');
 
 if (filterButtons.length > 0) {
+    const portfolioItems = document.querySelectorAll('.portfolio-item');
     filterButtons.forEach(button => {
         button.addEventListener('click', () => {
             // Remove active class from all buttons
@@ -437,16 +474,25 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// Portfolio Item Click Handler
-const portfolioItems = document.querySelectorAll('.portfolio-item');
-portfolioItems.forEach(item => {
-    const viewBtn = item.querySelector('.view-project-btn');
-    if (viewBtn) {
-        viewBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            // In a real implementation, this would open a modal or navigate to a project detail page
-            alert('Project detail view would open here. In a full implementation, this would show a modal or navigate to a detailed project page.');
-        });
-    }
-});
+// Portfolio Item Click Handler - Initialize when DOM is ready
+function initPortfolioItems() {
+    const portfolioItems = document.querySelectorAll('.portfolio-item');
+    portfolioItems.forEach(item => {
+        const viewBtn = item.querySelector('.view-project-btn');
+        if (viewBtn) {
+            viewBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                // In a real implementation, this would open a modal or navigate to a project detail page
+                alert('Project detail view would open here. In a full implementation, this would show a modal or navigate to a detailed project page.');
+            });
+        }
+    });
+}
+
+// Initialize portfolio items when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPortfolioItems);
+} else {
+    initPortfolioItems();
+}
 

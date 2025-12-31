@@ -1,138 +1,125 @@
-// Language Switcher
-let currentLang = localStorage.getItem('language') || 'en';
-
-function changeLanguage(lang) {
-    // Check if translations object exists
-    if (typeof translations === 'undefined' || !translations[lang]) {
-        console.error('Translations not loaded yet or language not found:', lang);
-        setTimeout(() => changeLanguage(lang), 100);
-        return;
-    }
+// Language Switcher - Simple and Reliable Implementation
+(function() {
+    'use strict';
     
-    currentLang = lang;
-    localStorage.setItem('language', lang);
+    let currentLang = localStorage.getItem('language') || 'en';
+    let isInitialized = false;
     
-    // Update HTML lang and dir attributes
-    document.documentElement.lang = lang;
-    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
-    
-    // Update language buttons
-    document.querySelectorAll('.lang-btn').forEach(btn => {
-        btn.classList.remove('active');
-        if (btn.getAttribute('data-lang') === lang) {
-            btn.classList.add('active');
+    function changeLanguage(lang) {
+        // Wait for translations to be available
+        if (typeof translations === 'undefined') {
+            console.log('Waiting for translations to load...');
+            setTimeout(function() { changeLanguage(lang); }, 100);
+            return;
         }
-    });
-    
-    // Translate all elements with data-i18n attribute
-    document.querySelectorAll('[data-i18n]').forEach(element => {
-        const key = element.getAttribute('data-i18n');
-        if (translations[lang] && translations[lang][key]) {
-            const translation = translations[lang][key];
-            
-            // Handle HTML content (for links with text nodes)
-            if (element.tagName === 'A' && element.innerHTML.includes('@')) {
-                // Preserve links in text
-                element.innerHTML = translation;
-            } else if (element.tagName === 'A' && (element.innerHTML.includes('→') || element.innerHTML.includes('←'))) {
-                // Handle arrows - reverse for RTL
-                element.textContent = lang === 'ar' ? translation.replace('→', '←').replace('←', '→') : translation;
-            } else if (element.tagName === 'BUTTON') {
-                // Handle button elements
-                element.textContent = translation;
-            } else {
-                element.textContent = translation;
+        
+        if (!translations[lang]) {
+            console.error('Language not found:', lang);
+            return;
+        }
+        
+        currentLang = lang;
+        localStorage.setItem('language', lang);
+        
+        // Update HTML attributes
+        document.documentElement.setAttribute('lang', lang);
+        document.documentElement.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+        
+        // Update language buttons
+        var langButtons = document.querySelectorAll('.lang-btn');
+        langButtons.forEach(function(btn) {
+            btn.classList.remove('active');
+            if (btn.getAttribute('data-lang') === lang) {
+                btn.classList.add('active');
             }
-        }
-    });
-    
-    // Update page title and meta description
-    if (lang === 'ar') {
-        document.title = 'Menu Drinks - خدمات تصميم القوائم والهوية البصرية الاحترافية في عمان';
-        const metaDesc = document.querySelector('meta[name="description"]');
-        if (metaDesc) {
-            metaDesc.content = 'Menu Drinks - خدمات تصميم قوائم المشروبات والهوية البصرية ومفاهيم التصميم الداخلي في عمان. قوائم مشروبات مخصصة للمقاهي والمطاعم.';
-        }
-    } else {
-        document.title = 'Menu Drinks - Professional Menu Design & Branding Services in Oman';
-        const metaDesc = document.querySelector('meta[name="description"]');
-        if (metaDesc) {
-            metaDesc.content = 'Menu Drinks - Professional drinks menu design, branding, and interior concept services in Oman. Custom beverage menus for cafes and restaurants.';
-        }
-    }
-}
-
-// Initialize language switcher when page is ready
-function initLanguageSwitcher() {
-    // Check if translations are loaded
-    if (typeof translations === 'undefined') {
-        console.log('Waiting for translations...');
-        setTimeout(initLanguageSwitcher, 50);
-        return;
-    }
-    
-    console.log('Translations loaded, initializing language switcher');
-    
-    // Set initial language
-    changeLanguage(currentLang);
-    
-    // Add event listeners to language buttons
-    const langButtons = document.querySelectorAll('.lang-btn');
-    console.log('Found language buttons:', langButtons.length);
-    
-    langButtons.forEach((btn, index) => {
-        // Remove any existing listeners by cloning
-        const newBtn = btn.cloneNode(true);
-        btn.parentNode.replaceChild(newBtn, btn);
-        
-        // Add click event listener with touch support
-        newBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            const lang = this.getAttribute('data-lang');
-            console.log('Language button clicked:', lang);
-            changeLanguage(lang);
         });
         
-        // Also add touchstart for better mobile support
-        newBtn.addEventListener('touchstart', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            const lang = this.getAttribute('data-lang');
-            console.log('Language button touched:', lang);
-            changeLanguage(lang);
+        // Translate all elements
+        var elements = document.querySelectorAll('[data-i18n]');
+        elements.forEach(function(element) {
+            var key = element.getAttribute('data-i18n');
+            if (translations[lang] && translations[lang][key]) {
+                var translation = translations[lang][key];
+                
+                // Handle different element types
+                if (element.tagName === 'A' && element.innerHTML.includes('@')) {
+                    element.innerHTML = translation;
+                } else if (element.tagName === 'BUTTON') {
+                    element.textContent = translation;
+                } else {
+                    element.textContent = translation;
+                }
+            }
         });
-    });
-}
-
-// Initialize when page loads - wait for both DOM and scripts
-let languageSwitcherInitialized = false;
-
-function tryInitLanguageSwitcher() {
-    if (languageSwitcherInitialized) return;
+        
+        // Update page title
+        if (lang === 'ar') {
+            document.title = 'Menu Drinks - خدمات تصميم القوائم والهوية البصرية الاحترافية في عمان';
+        } else {
+            document.title = 'Menu Drinks - Professional Menu Design & Branding Services in Oman';
+        }
+        
+        console.log('Language changed to:', lang);
+    }
     
-    if (typeof translations !== 'undefined' && document.querySelectorAll('.lang-btn').length > 0) {
-        console.log('Initializing language switcher...');
-        initLanguageSwitcher();
-        languageSwitcherInitialized = true;
-    } else {
-        setTimeout(tryInitLanguageSwitcher, 50);
+    function initLanguageSwitcher() {
+        if (isInitialized) return;
+        
+        // Check if translations and buttons are ready
+        if (typeof translations === 'undefined') {
+            setTimeout(initLanguageSwitcher, 50);
+            return;
+        }
+        
+        var langButtons = document.querySelectorAll('.lang-btn');
+        if (langButtons.length === 0) {
+            setTimeout(initLanguageSwitcher, 50);
+            return;
+        }
+        
+        isInitialized = true;
+        console.log('Language switcher initialized');
+        
+        // Set initial language
+        changeLanguage(currentLang);
+        
+        // Add event listeners to language buttons
+        langButtons.forEach(function(btn) {
+            // Use a single event handler for both click and touch
+            function handleLanguageSwitch(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                var lang = btn.getAttribute('data-lang');
+                if (lang) {
+                    changeLanguage(lang);
+                }
+            }
+            
+            btn.addEventListener('click', handleLanguageSwitch);
+            btn.addEventListener('touchend', handleLanguageSwitch);
+        });
     }
-}
-
-// Try multiple times to ensure translations are loaded
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', tryInitLanguageSwitcher);
-} else {
-    tryInitLanguageSwitcher();
-}
-
-// Also try on window load as fallback
-window.addEventListener('load', function() {
-    if (!languageSwitcherInitialized) {
-        tryInitLanguageSwitcher();
+    
+    // Initialize when DOM and scripts are ready
+    function startInit() {
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', function() {
+                setTimeout(initLanguageSwitcher, 100);
+            });
+        } else {
+            setTimeout(initLanguageSwitcher, 100);
+        }
+        
+        // Also try on window load
+        window.addEventListener('load', function() {
+            if (!isInitialized) {
+                setTimeout(initLanguageSwitcher, 100);
+            }
+        });
     }
-});
+    
+    startInit();
+})();
 
 // Mobile Menu Toggle - Initialize when DOM is ready
 let mobileMenuInitialized = false;

@@ -46,9 +46,23 @@
                     element.innerHTML = translation;
                 } else if (element.tagName === 'BUTTON') {
                     element.textContent = translation;
+                } else if (element.tagName === 'OPTION') {
+                    element.textContent = translation;
+                } else if (element.tagName === 'SPAN' && element.parentElement.tagName === 'LI') {
+                    // Handle list items with spans
+                    element.textContent = translation;
                 } else {
                     element.textContent = translation;
                 }
+            }
+        });
+        
+        // Translate select options
+        var selectOptions = document.querySelectorAll('select option[data-i18n]');
+        selectOptions.forEach(function(option) {
+            var key = option.getAttribute('data-i18n');
+            if (translations[lang] && translations[lang][key]) {
+                option.textContent = translations[lang][key];
             }
         });
         

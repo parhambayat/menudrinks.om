@@ -52,6 +52,11 @@ var translations = {
         'coffeeGallery.subtitle': 'Custom menu design collection for specialty coffee shop',
         'coffeeGallery.backToPortfolio': '← Back to Portfolio',
         
+        // Juice Gallery
+        'juiceGallery.title': 'Fresh Juice Bar',
+        'juiceGallery.subtitle': 'Complete branding & visual identity collection',
+        'juiceGallery.backToPortfolio': '← Back to Portfolio',
+        
         // Instagram
         'instagram.title': 'Follow Our Journey',
         'instagram.subtitle': 'Latest updates from @menudrinks.om',
@@ -350,6 +355,11 @@ var translations = {
         'coffeeGallery.title': 'مقهى القهوة الحرفي',
         'coffeeGallery.subtitle': 'مجموعة تصميم قوائم مخصصة لمقهى القهوة المتخصص',
         'coffeeGallery.backToPortfolio': '← العودة إلى المعرض',
+        
+        // Juice Gallery
+        'juiceGallery.title': 'بار العصائر الطازجة',
+        'juiceGallery.subtitle': 'مجموعة الهوية البصرية والعلامة التجارية الكاملة',
+        'juiceGallery.backToPortfolio': '← العودة إلى المعرض',
         
         // Instagram
         'instagram.title': 'تابع رحلتنا',

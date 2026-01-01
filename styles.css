@@ -487,18 +487,27 @@ section {
 }
 
 .team-visual {
-    max-width: 1200px;
+    max-width: 600px;
     margin: 0 auto;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: var(--shadow-lg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 0;
 }
 
-.team-image {
-    aspect-ratio: 16/9;
-    background-size: cover;
-    background-position: center;
-    min-height: 500px;
+.team-logo {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-image {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    object-fit: contain;
 }
 
 /* Instagram Feed */
@@ -1470,6 +1479,16 @@ html[dir="rtl"] .footer-content {
     .visuals-grid,
     .gallery-grid {
         grid-template-columns: 1fr;
+    }
+
+    .team-visual {
+        max-width: 100%;
+        padding: 1rem 0;
+    }
+
+    .team-logo {
+        max-width: 250px;
+        padding: 0 1rem;
     }
 }
 

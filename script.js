@@ -495,11 +495,15 @@ function initPortfolioItems() {
     portfolioItems.forEach(item => {
         const viewBtn = item.querySelector('.view-project-btn');
         if (viewBtn) {
-            viewBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                // In a real implementation, this would open a modal or navigate to a project detail page
-                alert('Project detail view would open here. In a full implementation, this would show a modal or navigate to a detailed project page.');
-            });
+            // Only add event listener if it's a button without a link
+            if (viewBtn.tagName === 'BUTTON' && !viewBtn.hasAttribute('href')) {
+                viewBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    // In a real implementation, this would open a modal or navigate to a project detail page
+                    alert('Project detail view would open here. In a full implementation, this would show a modal or navigate to a detailed project page.');
+                });
+            }
+            // If it's a link (anchor tag), let it navigate naturally
         }
     });
 }

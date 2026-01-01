@@ -62,6 +62,11 @@ var translations = {
         'rooftopGallery.subtitle': 'Menu design & interior concept collection',
         'rooftopGallery.backToPortfolio': '← Back to Portfolio',
         
+        // Smoothie Gallery
+        'smoothieGallery.title': 'Smoothie & Wellness Bar',
+        'smoothieGallery.subtitle': 'Modern branding package collection',
+        'smoothieGallery.backToPortfolio': '← Back to Portfolio',
+        
         // Instagram
         'instagram.title': 'Follow Our Journey',
         'instagram.subtitle': 'Latest updates from @menudrinks.om',
@@ -370,6 +375,11 @@ var translations = {
         'rooftopGallery.title': 'بار السطح الفاخر',
         'rooftopGallery.subtitle': 'مجموعة تصميم القوائم والمفاهيم الداخلية',
         'rooftopGallery.backToPortfolio': '← العودة إلى المعرض',
+        
+        // Smoothie Gallery
+        'smoothieGallery.title': 'بار العصائر والرفاهية',
+        'smoothieGallery.subtitle': 'مجموعة العلامة التجارية الحديثة',
+        'smoothieGallery.backToPortfolio': '← العودة إلى المعرض',
         
         // Instagram
         'instagram.title': 'تابع رحلتنا',

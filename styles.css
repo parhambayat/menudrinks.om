@@ -593,12 +593,32 @@ section {
 .image-placeholder {
     aspect-ratio: 4/3;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background-size: cover;
+    background-position: center;
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
     font-weight: 600;
     font-size: 1.125rem;
+    position: relative;
+}
+
+.image-placeholder::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 1;
+}
+
+.image-placeholder span {
+    position: relative;
+    z-index: 2;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 /* Mission & Vision */
@@ -922,11 +942,47 @@ section {
     cursor: pointer;
     font-weight: 600;
     transition: var(--transition);
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
 }
 
 .view-project-btn:hover {
     background: #c0392b;
     transform: scale(1.05);
+}
+
+/* Tea Gallery */
+.tea-gallery {
+    padding: 5rem 0;
+    background: var(--bg-white);
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.gallery-item {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+.gallery-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.gallery-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    aspect-ratio: 4/3;
 }
 
 /* Case Studies */
@@ -1411,7 +1467,8 @@ html[dir="rtl"] .footer-content {
     }
 
     .services-grid,
-    .visuals-grid {
+    .visuals-grid,
+    .gallery-grid {
         grid-template-columns: 1fr;
     }
 }

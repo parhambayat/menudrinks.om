@@ -42,6 +42,11 @@ var translations = {
         'team.title': 'Our Team at Work',
         'team.subtitle': 'Dedicated professionals creating exceptional menu designs',
         
+        // Tea Gallery
+        'teaGallery.title': 'Traditional Tea House',
+        'teaGallery.subtitle': 'Elegant tea menu design collection',
+        'teaGallery.backToPortfolio': '← Back to Portfolio',
+        
         // Instagram
         'instagram.title': 'Follow Our Journey',
         'instagram.subtitle': 'Latest updates from @menudrinks.om',
@@ -330,6 +335,11 @@ var translations = {
         // Team
         'team.title': 'فريقنا في العمل',
         'team.subtitle': 'محترفون مخلصون يبتكرون تصاميم قوائم استثنائية',
+        
+        // Tea Gallery
+        'teaGallery.title': 'بيت الشاي التقليدي',
+        'teaGallery.subtitle': 'مجموعة تصميم قوائم الشاي الأنيقة',
+        'teaGallery.backToPortfolio': '← العودة إلى المعرض',
         
         // Instagram
         'instagram.title': 'تابع رحلتنا',

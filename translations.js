@@ -47,6 +47,11 @@ var translations = {
         'teaGallery.subtitle': 'Elegant tea menu design collection',
         'teaGallery.backToPortfolio': '← Back to Portfolio',
         
+        // Coffee Gallery
+        'coffeeGallery.title': 'Artisan Coffee House',
+        'coffeeGallery.subtitle': 'Custom menu design collection for specialty coffee shop',
+        'coffeeGallery.backToPortfolio': '← Back to Portfolio',
+        
         // Instagram
         'instagram.title': 'Follow Our Journey',
         'instagram.subtitle': 'Latest updates from @menudrinks.om',
@@ -340,6 +345,11 @@ var translations = {
         'teaGallery.title': 'بيت الشاي التقليدي',
         'teaGallery.subtitle': 'مجموعة تصميم قوائم الشاي الأنيقة',
         'teaGallery.backToPortfolio': '← العودة إلى المعرض',
+        
+        // Coffee Gallery
+        'coffeeGallery.title': 'مقهى القهوة الحرفي',
+        'coffeeGallery.subtitle': 'مجموعة تصميم قوائم مخصصة لمقهى القهوة المتخصص',
+        'coffeeGallery.backToPortfolio': '← العودة إلى المعرض',
         
         // Instagram
         'instagram.title': 'تابع رحلتنا',

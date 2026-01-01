@@ -503,7 +503,14 @@ function initPortfolioItems() {
                     alert('Project detail view would open here. In a full implementation, this would show a modal or navigate to a detailed project page.');
                 });
             }
-            // If it's a link (anchor tag), let it navigate naturally
+            // If it's a link (anchor tag), ensure it works properly
+            if (viewBtn.tagName === 'A') {
+                // Make sure the link is clickable
+                viewBtn.addEventListener('click', (e) => {
+                    // Allow navigation to proceed
+                    e.stopPropagation();
+                }, { passive: true });
+            }
         }
     });
 }

@@ -916,20 +916,22 @@ section {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.7);
     color: white;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    opacity: 0;
+    opacity: 1;
     transition: var(--transition);
     padding: 2rem;
     text-align: center;
+    z-index: 10;
+    pointer-events: auto;
 }
 
 .portfolio-item:hover .portfolio-overlay {
-    opacity: 1;
+    background: rgba(0, 0, 0, 0.85);
 }
 
 .portfolio-overlay h3 {
@@ -954,9 +956,15 @@ section {
     text-decoration: none;
     display: inline-block;
     text-align: center;
+    position: relative;
+    z-index: 20;
+    pointer-events: auto;
+    -webkit-tap-highlight-color: rgba(192, 57, 43, 0.3);
+    touch-action: manipulation;
 }
 
-.view-project-btn:hover {
+.view-project-btn:hover,
+.view-project-btn:active {
     background: #c0392b;
     transform: scale(1.05);
 }
@@ -1489,6 +1497,18 @@ html[dir="rtl"] .footer-content {
     .team-logo {
         max-width: 250px;
         padding: 0 1rem;
+    }
+
+    .portfolio-overlay {
+        opacity: 1 !important;
+        background: rgba(0, 0, 0, 0.75) !important;
+        padding: 1.5rem;
+    }
+
+    .view-project-btn {
+        padding: 0.875rem 1.25rem;
+        font-size: 0.9rem;
+        min-width: 140px;
     }
 }
 

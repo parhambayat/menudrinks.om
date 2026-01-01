@@ -36,6 +36,11 @@ var translations = {
         'visuals.item2': 'Artisan Cocktail Menu',
         'visuals.item3': 'Fresh Juice Collection',
         'visuals.item4': 'Tea & Specialty Drinks',
+        'visuals.item5': 'Bakery Project',
+        
+        // Team
+        'team.title': 'Our Team at Work',
+        'team.subtitle': 'Dedicated professionals creating exceptional menu designs',
         
         // Instagram
         'instagram.title': 'Follow Our Journey',
@@ -320,6 +325,11 @@ var translations = {
         'visuals.item2': 'قائمة الكوكتيل الحرفية',
         'visuals.item3': 'مجموعة العصائر الطازجة',
         'visuals.item4': 'الشاي والمشروبات الخاصة',
+        'visuals.item5': 'مشروع المخبز',
+        
+        // Team
+        'team.title': 'فريقنا في العمل',
+        'team.subtitle': 'محترفون مخلصون يبتكرون تصاميم قوائم استثنائية',
         
         // Instagram
         'instagram.title': 'تابع رحلتنا',

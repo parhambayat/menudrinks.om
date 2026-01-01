@@ -430,6 +430,12 @@ section {
     gap: 2rem;
 }
 
+@media (min-width: 1200px) {
+    .visuals-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
 .visual-item {
     border-radius: 10px;
     overflow: hidden;
@@ -445,12 +451,54 @@ section {
 .visual-placeholder {
     aspect-ratio: 4/3;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background-size: cover;
+    background-position: center;
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
     font-weight: 600;
     font-size: 1.25rem;
+    position: relative;
+    min-height: 250px;
+}
+
+.visual-placeholder::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+}
+
+.visual-placeholder span {
+    position: relative;
+    z-index: 2;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Team Section */
+.team-section {
+    background: var(--bg-light);
+    padding: 5rem 0;
+}
+
+.team-visual {
+    max-width: 1200px;
+    margin: 0 auto;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+}
+
+.team-image {
+    aspect-ratio: 16/9;
+    background-size: cover;
+    background-position: center;
+    min-height: 500px;
 }
 
 /* Instagram Feed */

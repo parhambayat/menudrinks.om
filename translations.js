@@ -57,6 +57,11 @@ var translations = {
         'juiceGallery.subtitle': 'Complete branding & visual identity collection',
         'juiceGallery.backToPortfolio': '← Back to Portfolio',
         
+        // Rooftop Gallery
+        'rooftopGallery.title': 'Luxury Rooftop Bar',
+        'rooftopGallery.subtitle': 'Menu design & interior concept collection',
+        'rooftopGallery.backToPortfolio': '← Back to Portfolio',
+        
         // Instagram
         'instagram.title': 'Follow Our Journey',
         'instagram.subtitle': 'Latest updates from @menudrinks.om',
@@ -360,6 +365,11 @@ var translations = {
         'juiceGallery.title': 'بار العصائر الطازجة',
         'juiceGallery.subtitle': 'مجموعة الهوية البصرية والعلامة التجارية الكاملة',
         'juiceGallery.backToPortfolio': '← العودة إلى المعرض',
+        
+        // Rooftop Gallery
+        'rooftopGallery.title': 'بار السطح الفاخر',
+        'rooftopGallery.subtitle': 'مجموعة تصميم القوائم والمفاهيم الداخلية',
+        'rooftopGallery.backToPortfolio': '← العودة إلى المعرض',
         
         // Instagram
         'instagram.title': 'تابع رحلتنا',

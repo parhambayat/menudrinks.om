@@ -268,7 +268,7 @@ if (document.readyState === 'loading') {
     initPortfolioFilter();
 }
 
-// Contact Form Handling
+// Contact Form Handling - Send to WhatsApp
 const contactForm = document.getElementById('contactForm');
 const formMessage = document.getElementById('formMessage');
 
@@ -293,28 +293,33 @@ if (contactForm) {
             return;
         }
 
-        // Simulate form submission (replace with actual API call)
-        showFormMessage('Sending message...', 'success');
-        
-        // In a real implementation, you would send the data to your server
-        // Example:
-        // fetch('/api/contact', {
-        //     method: 'POST',
-        //     headers: { 'Content-Type': 'application/json' },
-        //     body: JSON.stringify(data)
-        // })
-        // .then(response => response.json())
-        // .then(result => {
-        //     showFormMessage('Thank you! Your message has been sent successfully.', 'success');
-        //     contactForm.reset();
-        // })
-        // .catch(error => {
-        //     showFormMessage('Sorry, there was an error sending your message. Please try again.', 'error');
-        // });
+        // Get service name
+        const serviceSelect = document.getElementById('service');
+        const selectedService = serviceSelect.options[serviceSelect.selectedIndex].text;
 
-        // For demo purposes, show success message after 1 second
+        // Format message for WhatsApp
+        const phoneNumber = '96898276882'; // WhatsApp number without +
+        const whatsappMessage = `*New Contact Form Submission*\n\n` +
+            `*Name:* ${data.name}\n` +
+            `*Email:* ${data.email}\n` +
+            (data.phone ? `*Phone:* ${data.phone}\n` : '') +
+            `*Service Interested In:* ${selectedService}\n\n` +
+            `*Message:*\n${data.message}`;
+
+        // Encode message for URL
+        const encodedMessage = encodeURIComponent(whatsappMessage);
+
+        // Create WhatsApp URL
+        const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+
+        // Open WhatsApp in new tab
+        window.open(whatsappUrl, '_blank');
+
+        // Show success message
+        showFormMessage('Redirecting to WhatsApp...', 'success');
+        
+        // Reset form after a short delay
         setTimeout(() => {
-            showFormMessage('Thank you! Your message has been sent successfully. We will get back to you soon.', 'success');
             contactForm.reset();
         }, 1000);
     });
@@ -462,6 +467,61 @@ function createScrollToTopButton() {
 
 // Initialize scroll to top button
 createScrollToTopButton();
+
+// Hero Video Loading Handler
+function initHeroVideo() {
+    const heroVideo = document.querySelector('.hero-video');
+    const videoLoader = document.querySelector('.hero-video-loader');
+    
+    if (!heroVideo || !videoLoader) return;
+    
+    // When video can play, show it and hide loader
+    function handleVideoReady() {
+        heroVideo.classList.add('loaded');
+        videoLoader.classList.add('hidden');
+        // Start playing after a short delay to ensure smooth transition
+        setTimeout(() => {
+            heroVideo.play().catch(err => {
+                console.log('Video autoplay prevented:', err);
+            });
+        }, 300);
+    }
+    
+    // Check if video is already loaded
+    if (heroVideo.readyState >= 3) { // HAVE_FUTURE_DATA or HAVE_ENOUGH_DATA
+        handleVideoReady();
+    } else {
+        // Wait for video to be ready
+        heroVideo.addEventListener('loadeddata', handleVideoReady, { once: true });
+        heroVideo.addEventListener('canplay', handleVideoReady, { once: true });
+        heroVideo.addEventListener('loadedmetadata', function() {
+            // Load video
+            heroVideo.load();
+        }, { once: true });
+    }
+    
+    // Fallback: if video fails to load, ensure loader is hidden after timeout
+    setTimeout(() => {
+        if (!heroVideo.classList.contains('loaded')) {
+            heroVideo.classList.add('loaded');
+            videoLoader.classList.add('hidden');
+        }
+    }, 5000);
+}
+
+// Initialize hero video when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initHeroVideo);
+} else {
+    initHeroVideo();
+}
+
+// Also try on window load as fallback
+window.addEventListener('load', function() {
+    if (document.querySelector('.hero-video') && !document.querySelector('.hero-video').classList.contains('loaded')) {
+        initHeroVideo();
+    }
+});
 
 // Intersection Observer for Fade-in Animations
 const observerOptions = {
